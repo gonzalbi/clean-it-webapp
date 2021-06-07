@@ -13,3 +13,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.location-container {
+  padding: 1vh;
+  font-size: 2vh;
+  border: 0.5vh black solid;
+  margin: 1vh;
+  border-radius: 10px;
+  background-color: #959595;
+}
+
+.location-text {
+  margin: 1vh;
+}
+
+.sector-text {
+  margin: 1vh;
+}
+
+.subsector-text {
+  margin: 1vh;
+}
