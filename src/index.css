@@ -15,22 +15,87 @@ code {
 }
 
 .location-container {
-  padding: 1vh;
   font-size: 2vh;
-  border: 0.5vh black solid;
+  border: 1px black solid;
   margin: 1vh;
-  border-radius: 10px;
   background-color: #959595;
 }
 
-.location-text {
-  margin: 1vh;
+.location-header {
+  margin: 1vh 0vh 0vh 0vh;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
 }
 
-.sector-text {
-  margin: 1vh;
+.location-header p {
+  margin: inherit;
+  padding-left: 1vh;
 }
 
-.subsector-text {
-  margin: 1vh;
+.location-header .idga-add-button {
+  margin-left: auto;
+  margin-right: 1vh;
+}
+
+.sector-header {
+  margin: 1vh 0vh 1vh 0vh;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.sector-header p {
+  margin: inherit;
+  padding-left: 1vh;
+}
+
+.sector-header .idga-add-button {
+  margin-left: auto;
+  margin-right: 1vh;
+}
+
+.sector-container {
+  border-bottom: 1px black solid;
+}
+
+.subsector-container {
+  margin: 1vh 0vh 1vh 0vh;
+  display: inline-flex;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.subsector-container p {
+  margin: inherit;
+  padding-left: 1vh;
+}
+
+.subsector-container .idga-edit {
+  margin-left: auto;
+  margin-right: 1vh;
+}
+
+.idga-action-button {
+  padding: 1vh;
+}
+
+.idga-headear {
+  display: inline-flex;
+  width: 100%;
+}
+
+.idga-headear p {
+  font-size: 5vh;
+  margin: auto;
+}
+
+.idga-add-button {
+  float: left;
 }
