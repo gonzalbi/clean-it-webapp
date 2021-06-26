@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
+import MainInfoModal from './MainInfoModal';
+import OperationsManager from './OperationsManager'
+
 
 class IGDAManager extends Component {
     constructor(){
         super();
         this.state = {
             IGDAData : [],
-            Loading : "Retrieving data",
-            showModal : false
+            showModal : false,
+            modalData : {
+                parentId : null,
+                title : "",
+                body : "",
+                saveFunc : null
+            }
+
         };
+
     }
 
     componentDidMount = () => {
@@ -24,71 +33,62 @@ class IGDAManager extends Component {
         })
     }
 
-    handleModal = () => {
-        this.setState(
-            {
-                showModal : true
-            }
-        )
+    openModal = (title,body,saveFunc,parentId = null) => {
+    
+        this.setState({ 
+            modalData : {title : title,body : body, saveFunc : saveFunc,parentId : parentId},
+            showModal: true 
+        });
+    }
+    
+    hideModal= () => this.setState({ showModal: false });
+
+    addLocation = (data) => {
+        axios.post("/addLocation",data).then( (res) => {
+            console.log("success")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
-    renderLocation = (locationArray) => {
-        return (
-            locationArray.map(data => 
-                <div 
-                  className="location-container" 
-                  key={"location-id-"+data.Id}>
-                <div 
-                  className="location-header" 
-                  location-id={data.Id}>
-                    <p>{data.Name}</p>
-                    <Button className="idga-add-button" variant="success">Add Sector </Button>{' '}
-                </div>
-                {
-                this.renderSector(data.Sectors)
-                }
-                </div>
-            )
-        )
+    addSector = (data) => {
+
+        axios.post("/addSector",data).then( (res) => {
+            console.log("success")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
-    renderSector = (sectorArray) => {
-        return (
-            sectorArray.map(sector => 
-                <div 
-                className="sector-container" 
-                key={"sector-id-"+sector.Id}>
-                <div 
-                className="sector-header" 
-                sector-id={sector.Id}>
-                    <p>{sector.Name}</p>
-                    <Button className="idga-add-button" variant="success">Add Subsector </Button>{' '}
-                </div>
-                {
-                    this.renderSubSector(sector.SubSectors)
-                }
-                </div>
-            )
-        )
-    }
+    addSubsector = (data) => {
 
-    renderSubSector = (subSectorArray) => {
-        return (
-            subSectorArray.map(subsector => 
-                <div 
-                key={subsector.Id} 
-                className="subsector-container" 
-                subsector-id={subsector.Id}>
-                    <p>{subsector.Name}</p>
-                    <Button className="idga-edit" variant="primary">Edit Operations </Button>{' '}
-                </div>
-            )
-        )
+        axios.post("/addSubsector",data).then( (res) => {
+            console.log("success")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     render() {
         return (
             <>
+                
+                <MainInfoModal 
+                    parentId={this.state.modalData.parentId}
+                    show={this.state.showModal}
+                    hideModal={this.hideModal}
+                    title={this.state.modalData.title}
+                    body={this.state.modalData.body}
+                    saveFunc={this.state.modalData.saveFunc}
+                />
+
+                <OperationsManager 
+                    
+                />
+
                 <div>
                 <div 
                   className="idga-headear">   
@@ -96,7 +96,7 @@ class IGDAManager extends Component {
                     <Button 
                       className="idga-add-button" 
                       variant="success"
-                      >
+                      onClick={() => this.openModal("Add New Location","Add new location to client",this.addLocation)} >
                           Add Location
                     </Button>{' '}
                 </div> 
@@ -107,6 +107,76 @@ class IGDAManager extends Component {
             
         </>
         );
+    }
+
+
+    //RENDER FUNCTIONS
+    renderLocation = (locationArray) => {
+        
+        return (
+            locationArray.map(data => 
+                <div 
+                  className="location-container" 
+                  key={"location-id-"+data.Id}>
+                <div 
+                  className="location-header" 
+                  location-id={data.Id}>
+                    <p>{data.Name}</p>
+                    <Button 
+                        className="idga-add-button" 
+                        variant="success"
+                        onClick={() => this.openModal("Add New Sector","Add new sector to location",this.addSector,data.Id)} >
+                        Add Sector 
+                    </Button>{' '}
+                </div>
+                {
+                 data.Sectors != null ? this.renderSector(data.Sectors,data.id) : null
+                }
+                </div>
+            )
+        )
+    }
+
+    renderSector = (sectorArray,locationId) => {
+        return (
+            sectorArray.map(sector => 
+                <div 
+                className="sector-container" 
+                key={"sector-id-"+sector.Id}>
+                <div 
+                className="sector-header" 
+                sector-id={sector.Id}
+                location-id={locationId}>
+                    <p>{sector.Name}</p>
+                    <Button 
+                        className="idga-add-button" 
+                        variant="success"
+                        onClick={() => this.openModal("Add New Subsector","Add new sub sector to Sector",this.addSubsector,sector.Id)} 
+                        >                    
+                            Add Subsector 
+                    </Button>{' '}
+                </div>
+                {
+                    sector.SubSectors != null ? this.renderSubSector(sector.SubSectors,sector.Id) : null
+                }
+                </div>
+            )
+        )
+    }
+
+    renderSubSector = (subSectorArray,sectorId) => {
+        return (
+            subSectorArray.map(subsector => 
+                <div 
+                key={subsector.Id} 
+                className="subsector-container" 
+                subsector-id={subsector.Id}
+                sector-id={sectorId}>
+                    <p>{subsector.Name}</p>
+                    <Button className="idga-edit" variant="primary">Edit Operations </Button>{' '}
+                </div>
+            )
+        )
     }
 }
 
