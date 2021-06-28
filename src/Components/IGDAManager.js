@@ -16,8 +16,9 @@ class IGDAManager extends Component {
                 title : "",
                 body : "",
                 saveFunc : null
-            }
-
+            },
+            operationData : [],
+            showOperation : false
         };
 
     }
@@ -42,6 +43,7 @@ class IGDAManager extends Component {
     }
     
     hideModal= () => this.setState({ showModal: false });
+    hideOperation= () => this.setState({ showOperation: false });
 
     addLocation = (data) => {
         axios.post("/addLocation",data).then( (res) => {
@@ -72,6 +74,19 @@ class IGDAManager extends Component {
         })
     }
 
+    getOperations= (id) => {
+        axios.get('/getOperations/'+id).then( (res) => {
+            this.setState({
+                operationData : res.data,
+                showOperation : true
+            })
+            console.log("success")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
     render() {
         return (
             <>
@@ -86,7 +101,9 @@ class IGDAManager extends Component {
                 />
 
                 <OperationsManager 
-                    
+                    operations={this.state.operationData}
+                    active={this.state.showOperation}
+                    hide={this.hideOperation}
                 />
 
                 <div>
@@ -165,6 +182,7 @@ class IGDAManager extends Component {
     }
 
     renderSubSector = (subSectorArray,sectorId) => {
+        if(subSectorArray) 
         return (
             subSectorArray.map(subsector => 
                 <div 
@@ -173,7 +191,13 @@ class IGDAManager extends Component {
                 subsector-id={subsector.Id}
                 sector-id={sectorId}>
                     <p>{subsector.Name}</p>
-                    <Button className="idga-edit" variant="primary">Edit Operations </Button>{' '}
+                    <Button 
+                        className="idga-edit" 
+                        variant="primary"
+                        onClick={() => this.getOperations(subsector.Id)}
+                        >
+                            Manage Operations 
+                    </Button>{' '}
                 </div>
             )
         )
