@@ -36,12 +36,12 @@ function Accordion(props) {
                         {
                             operationData.map(op => 
                                 <div className="operation-contents">
-                                    <div className="operation-header">
-                                        <p>Fecha {op.op_date}</p>
-                                        <p>Puntaje: {op.op_score}</p>
-                                    </div>
                                     <div className="operation-img">
-                                        <img src="https://i1.wp.com/tecnoversia.com/wp-content/uploads/sites/2/2018/11/Apple-Store.jpg?ssl=1" alt="img" />
+                                        <img src={window.location+'img/'+op.ImgPath.replace(/\\\\/g, '\\')} alt="img" />
+                                    </div>
+                                    <div className="operation-info">
+                                        <p>Fecha {op.Date}</p>
+                                        <p>Puntaje: {op.Score}</p>
                                     </div>
                                 </div>
                             )

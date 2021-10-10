@@ -145,13 +145,16 @@ code {
 }
 
 .operation-contents {
-  background-color: #fff;
+  background-color: rgb(161, 150, 150);
   box-shadow: 0 0 0 1px rgba(#000, 0.05), 0 20px 50px 0 rgba(#000, 0.1);
   border-radius: 15px;
   overflow: hidden;
   padding: 1.25rem;
   position: relative;
   transition: 0.15s ease-in;
+  display: flex;
+  margin: 1%;
+  border: 1px black solid;
 }
 
 .operation-header {
@@ -170,11 +173,20 @@ code {
 .operation-img {
   border-radius: 10px;
   overflow: hidden;
+  width: 10%;
+  border: 1px black solid;
 }
 
 .operation-img img {
   object-fit: cover;
   width: 100%;
+}
+
+.operation-info p {
+  line-height: 50px;
+  margin: 25px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .accordion {
@@ -187,6 +199,8 @@ code {
   justify-content: space-between;
   cursor: pointer;
   background-color: #97a5a7;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .accordion-title:hover {

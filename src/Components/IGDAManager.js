@@ -74,13 +74,13 @@ class IGDAManager extends Component {
         })
     }
 
-    getOperations= (id) => {
+    getOperations= (id,name) => {
         axios.get('/getOperations/'+id).then( (res) => {
             this.setState({
+                modalData : {title : name},
                 operationData : res.data,
                 showOperation : true
             })
-            console.log("success")
         })
         .catch((err) => {
             console.log(err)
@@ -101,6 +101,7 @@ class IGDAManager extends Component {
                 />
 
                 <OperationsManager 
+                    title = {this.state.modalData.title}
                     operations={this.state.operationData}
                     active={this.state.showOperation}
                     hide={this.hideOperation}
@@ -194,7 +195,7 @@ class IGDAManager extends Component {
                     <Button 
                         className="idga-edit" 
                         variant="primary"
-                        onClick={() => this.getOperations(subsector.Id)}
+                        onClick={() => this.getOperations(subsector.Id,subsector.Name)}
                         >
                             Manage Operations 
                     </Button>{' '}
