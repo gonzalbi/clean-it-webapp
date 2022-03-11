@@ -1,12 +1,14 @@
 import React from 'react';
 import Header from '../Components/Header';
+import Mainbody from '../Components/MainBody';
+import Sidebar from '../Components/Sidebar';
 
 function HomeScreen(props) {
     return (
         <div>
             <Header />
-            <h1>Clean It</h1>
-            
+            <Sidebar />
+            <Mainbody />            
         </div>
     );
 }

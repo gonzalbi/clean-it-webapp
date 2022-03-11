@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(87, 85, 85);
+  background-color: #1f1f56;
   padding: 1vh;
 }
 
@@ -214,4 +214,40 @@ code {
 
 .accordion-content {
   background-color: #c4d3d6;
+}
+
+.headerContainer {
+  color: white;
+  background-color: #1f1f56;
+  flex: auto;
+  display: flex;
+}
+
+.headerTab {
+  width: 10%;
+  text-align: center;
+}
+
+.headerTab.selected {
+  color: orange;
+  background-color: #2d2d5e;
+}
+
+.actionCell {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.actionCellTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionCellButton {
+  margin-left: auto;
+}
+
+.panelContainer {
+  padding: 5%;
 }
