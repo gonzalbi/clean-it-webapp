@@ -251,3 +251,12 @@ code {
 .panelContainer {
   padding: 5%;
 }
+
+.innerPanel {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}

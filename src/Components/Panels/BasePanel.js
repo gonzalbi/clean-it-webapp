@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 
 function BasePanel(props) {
 
@@ -12,9 +12,9 @@ function BasePanel(props) {
     return (
         <div style={style}>
             <div className={"panelContainer"}>
-                <h2>{props.title}</h2>
+                <h2>Agregar {props.title}</h2>
+                {props.customPanel}
             </div>
-           
         </div>
     )
 }

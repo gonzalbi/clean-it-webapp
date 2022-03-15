@@ -7,8 +7,8 @@ import { Tooltip,IconButton } from '@mui/material';
 function LocationTable(props) {
 
     const [locationData,setLocation] = useState([])
-
-    const generateActionCell = (cellName,tooltip) => {
+    
+    const generateActionCell = (cellName,id_item,tooltip,panelType) => {
         return (
             <div className={"actionCell"}>
             <div className={"actionCellTitle"}>
@@ -16,7 +16,7 @@ function LocationTable(props) {
             </div>
             <div className={"actionCellButton"}>
                 <Tooltip title={tooltip}>
-                    <IconButton color="secondary" onClick={props.openDrawer}>
+                    <IconButton color="secondary" onClick={() => props.openDrawer(panelType,id_item)}>
                         <AddCircleOutlineRoundedIcon />
                     </IconButton>
                 </Tooltip>
@@ -27,6 +27,10 @@ function LocationTable(props) {
 
 
     useEffect(() => {
+        getData()
+    }, [props.updateData])
+
+    const getData = () => {
         axios.get("/idga/getLocationData")
         .then( (res) => {
             setLocation(res.data)
@@ -35,16 +39,23 @@ function LocationTable(props) {
             setLocation([])
             console.log(err)
         })
-    }, [])
+    }
 
     const columns = [
+        {
+            name : "id_location",
+            options : {
+                display : false
+            }
+        },
         {
             name : "name",
             label : "Locacion",
             options: {
                 customBodyRender: (value, tableMeta, updateValue) => {
+                    const location_id = tableMeta.currentTableData[tableMeta.rowIndex].data[0]
                   return (
-                    generateActionCell(value,"Agregar Sector")
+                    generateActionCell(value,location_id,"Agregar Sector","sector")
                   );
                 }
               }  
@@ -57,8 +68,8 @@ function LocationTable(props) {
                     return sectors ? 
                         sectors.map(sector => { return sector.Subsectors.length > 0 ?
                             sector.Subsectors.map(subsector => 
-                            generateActionCell(sector.name,"Agregar Subsector"))  :
-                            generateActionCell(sector.name,"Agregar Subsector")
+                            generateActionCell(sector.name,sector.id_sector,"Agregar Subsector","subsector"))  :
+                            generateActionCell(sector.name,sector.id_sector,"Agregar Subsector","subsector")
                         }) : 
                         <div>--sin sector--</div>;
                 }
@@ -71,8 +82,8 @@ function LocationTable(props) {
                 customBodyRender: (sectors, tableMeta, updateValue) => {
                     return sectors ? 
                         sectors.map(sector => { return sector.Subsectors.length > 0 ?
-                            sector.Subsectors.map(subsector => generateActionCell(subsector.name,"Agregar Operaciones"))  :
-                            <div>A</div>
+                            sector.Subsectors.map(subsector => generateActionCell(subsector.name,subsector.id_subsector,"Agregar Operaciones","operation"))  :
+                            <div></div>
                         }) : 
                         <div>--sin subsector--</div>;
                 }
