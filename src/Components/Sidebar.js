@@ -3,32 +3,32 @@ import React from 'react';
 function Sidebar(props) {
    // const { title, content } = accordionData;
 
-   const style = {
-    color: "white",
-    backgroundColor: "#1f1f56",
-    width: "15%",
-    height: "100%",
-    flex : '1',
-    flexDirection : 'row',
-    margin: 0,
-    padding: 0,
-    position: 'fixed',
-    overflow: 'auto',
-  };
-
   const options = [
     {
         name : "Locaciones",
-        url : ""
+        optionName : "locationTable"
     },
+    {
+        name : "Operaciones",
+        optionName : "operations"
+    },
+    {
+        name : "Carga Entrega EPP",
+        optionName: "eppHandler"
+    },
+    
+    {
+        name : "Carga Entrega de Ropa",
+        optionName: "entregaRopaHandler"
+    }
   ]
 
     return (
         
-            <div style={style} >
+            <div className="sideBar" >
                 {
                     options.map((opt,index) => {return(
-                        <div key={index}>
+                        <div className="sideOption" key={index}>
                             <p>{opt.name}</p>
                         </div>
                     )})

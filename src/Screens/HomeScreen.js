@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Components/Header';
 import Mainbody from '../Components/MainBody';
 import Sidebar from '../Components/Sidebar';
 
 function HomeScreen(props) {
+    const [selectedTab,setSelectedTab] = useState("locationTable")
+
     return (
-        <div>
-            <Header />
+        <>
+            <Header  selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
             <Sidebar />
-            <Mainbody />            
-        </div>
+            <Mainbody selectedTab={selectedTab} />            
+        </>
     );
 }
 

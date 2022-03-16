@@ -11,7 +11,9 @@ function CustomTable(props) {
     viewColumns: false,
     filter : false,
     selectableRows: 'none',
-    enableNestedDataAccess: '.'    
+    enableNestedDataAccess: '.',
+    tableBodyHeight: '600px',
+    tableBodyMaxHeight : '600px'    
   };
 
     const theme = () => createTheme({
@@ -19,7 +21,7 @@ function CustomTable(props) {
             MuiPaper: {
                 styleOverrides:{
                     root: {
-                        backgroundColor: "#272758",
+                        backgroundColor: "#14213d",
                         color : "#fff"
                     }
                 }
@@ -27,7 +29,7 @@ function CustomTable(props) {
             MuiTableCell: {
                 styleOverrides:{
                     root: {
-                        backgroundColor: "#272758",
+                        backgroundColor: "#14213d",
                         borderBottomColor: "#5f5f7a",
                         color : "#fff",
                         verticalAlign: "top",

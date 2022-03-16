@@ -5,25 +5,32 @@ function Header(props) {
   const tabs = [
     {
         name : "Gestion",
-        url : ""
+        tabName : "locationTable"
     },
     {
         name : "Reportes",
-        url : ""
+        tabName : "reports"
     },
   ]
 
+  
+
     return (
-        
-            <div className="headerContainer">
-            {tabs.map((tab,index) => {
-                return (
-                <div className={`headerTab ${index === 0 ? 'selected' : ''}`} key={index} id={`header-${index}`}>
-                    <h3>{tab.name}</h3>
+            <header>
+                <div className="headerContainer">
+                {tabs.map((tab,index) => {
+                    return (
+                    <div 
+                        className={`headerTab ${props.selectedTab === tab.tabName ? 'selected' : ''}`} 
+                        key={index} 
+                        onClick={() => props.setSelectedTab(tab.tabName)}>
+                        <h3>{tab.name}</h3>
+                    </div>
+                    )
+                })}
                 </div>
-                )
-            })}
-            </div>
+                <div className="headerDivisor"></div>
+            </header>
         
     );
 }
