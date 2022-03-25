@@ -5,6 +5,7 @@ html {
 
 #root {
   height: 100%;
+  background-color: #0c1821;
 }
 
 body {
@@ -29,7 +30,8 @@ code {
 
 .mainBodyContainer {
   background-color: #0c1821;
-  margin-left: 15%;
+  margin-left: 10%;
+  margin-right: 2%;
   height: 100%;
   padding: 10px;
   flex: 1;
@@ -69,7 +71,7 @@ code {
 .sideBar {
   color: white;
   background-color: #0c1821;
-  width: 15%;
+  width: 10%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -108,6 +110,7 @@ code {
 
 .actionCellButton {
   margin-left: auto;
+  display: flex;
 }
 
 .panelContainer {

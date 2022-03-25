@@ -5,19 +5,19 @@ function Mainbody(props) {
 
   const [mainBodyComponent, setmainBodyComponent] = useState(<LocationTable />)
 
-  const renderContent = () => {
-    switch(props.selectedTab){
-      case "locationTable":
-        setmainBodyComponent(<LocationTable />)
-        break
-      default:
-        setmainBodyComponent(<div></div>)
-        break
-    }
-  }
-
   useEffect(() => {
-      renderContent()
+    const renderContent = () => {
+      switch(props.selectedTab){
+        case "locationTable":
+          setmainBodyComponent(<LocationTable />)
+          break
+        default:
+          setmainBodyComponent(<div></div>)
+          break
+      }
+    }
+
+    renderContent()
   }, [props.selectedTab])
 
   return (

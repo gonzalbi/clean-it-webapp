@@ -2,11 +2,18 @@ import React,{useState,useEffect} from 'react';
 import CustomTable from './CustomTable';
 import axios from 'axios'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Tooltip,IconButton,Drawer } from '@mui/material';
 import BasePanel from '../Panels/BasePanel';
 import SectorPanel from '../Panels/SectorPanel';
 import SubsectorPanel from '../Panels/SubsectorPanel';
 import OperationPanel from '../Panels/OperationPanel';
+import ManageOperationPanel from '../Panels/ManageOperationPanel';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import EPPPanel from '../Panels/EPPPanel';
+import EntregaRopaPanel from '../Panels/EntregaRopaPanel';
+import LocationPanel from '../Panels/LocationPanel';
 
 function LocationTable(props) {
 
@@ -16,11 +23,12 @@ function LocationTable(props) {
     const [customPanel, setCustomPanel] = useState(null)
     const [refreshKey,setRefreshKey] = useState(1)
 
-    const openDrawer = (panelType,itemId) => {
+    const openDrawer = (panelType,itemId,name = null) => {
 
         switch(panelType){
           case "location":
             setTitle("Locacion")
+            setCustomPanel(<LocationPanel closeDrawer={() => setDrawer(false)} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
           case "sector":
             setTitle("Sector")
@@ -34,6 +42,18 @@ function LocationTable(props) {
             setTitle("Operacion")
             setCustomPanel(<OperationPanel closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
+          case "manage_operations":
+              setTitle("Gestionar Operaciones")
+              setCustomPanel(<ManageOperationPanel closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+              break;
+          case "mangage_epp":
+              setTitle("Cargar Entrega de EPP por Operario")
+              setCustomPanel(<EPPPanel closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+              break;
+          case "manage_ropa":
+            setTitle("Cargar Entrega de Ropa por Operario")
+            setCustomPanel(<EntregaRopaPanel closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+              break;
           default :
             break;
         }
@@ -55,12 +75,52 @@ function LocationTable(props) {
                             <AddCircleOutlineRoundedIcon />
                         </IconButton>
                     </Tooltip>
-                </div>) :
+                    {
+                    panelType === 'operation' ? 
+                    renderManageOperations('manage_operations', id_item) :
+                    panelType === 'subsector' ?
+                    renderManageEPPRopa(id_item,cellName) :
+                    <></>
+                    }
+                </div>
+                ) :
              <></>
             }
 
         </div>
         )
+    }
+
+    const renderManageOperations = (panelType,id_item) => {
+        return (
+            <div className={"actionCellButton"}>
+                <Tooltip title='Gestionar operaciones'>
+                    <IconButton color="secondary" onClick={() => openDrawer(panelType,id_item)}>
+                        <VisibilityIcon />
+                    </IconButton>
+                </Tooltip>
+            </div>
+        )
+    }
+
+    const renderManageEPPRopa = (id_item,sectorName) =>{
+        return (
+        <>
+            <div className={"actionCellButton"}>
+                <Tooltip title='Gestionar entrega de EPP'>
+                    <IconButton color="secondary" onClick={() => openDrawer('mangage_epp',id_item,sectorName)}>
+                        <ListAltIcon />
+                    </IconButton>
+                </Tooltip>
+            </div>
+            <div className={"actionCellButton"}>
+                <Tooltip title='Gestionar entrega de Ropa'>
+                    <IconButton color="secondary" onClick={() => openDrawer('manage_ropa',id_item,sectorName)}>
+                        <CheckroomIcon />
+                    </IconButton>
+                </Tooltip>
+            </div>
+        </>)
     }
 
 
@@ -125,7 +185,9 @@ function LocationTable(props) {
                 customBodyRender: (sectors, tableMeta, updateValue) => {
                     return sectors ? 
                         sectors.map(sector => { return sector.Subsectors.length > 0 ?
-                            sector.Subsectors.map(subsector => generateActionCell(subsector.name,subsector.id_subsector,"Agregar Operaciones","operation"))  :
+                            sector.Subsectors.map(subsector => 
+                                generateActionCell(subsector.name,subsector.id_subsector,"Agregar Operaciones","operation") 
+                            )  :
                             <div></div>
                         }) : 
                         <div>--sin subsector--</div>;
@@ -146,10 +208,14 @@ function LocationTable(props) {
         },*/
     ];
 
+    const renderAddLocation = () => {
+        return (<div>{"Locaciones"}<Tooltip title={"Agregar Locacion"}><IconButton color="secondary" onClick={() => openDrawer("location",null)}><AddCircleOutlineRoundedIcon /></IconButton></Tooltip></div>)
+    }
+
   return (
         <>
             <CustomTable 
-                title={"Locaciones"}
+                title={renderAddLocation()}
                 columns={columns}
                 data={locationData}
             />

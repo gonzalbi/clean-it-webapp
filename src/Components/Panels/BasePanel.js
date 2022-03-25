@@ -12,7 +12,7 @@ function BasePanel(props) {
     return (
         <div style={style}>
             <div className={"panelContainer"}>
-                <h2>Agregar {props.title}</h2>
+                <h2>{props.title}</h2>
                 {props.customPanel}
             </div>
         </div>

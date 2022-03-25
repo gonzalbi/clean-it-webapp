@@ -10,10 +10,9 @@ function CustomTable(props) {
     print : false,
     viewColumns: false,
     filter : false,
+    search: false,
     selectableRows: 'none',
-    enableNestedDataAccess: '.',
-    tableBodyHeight: '600px',
-    tableBodyMaxHeight : '600px'    
+    tableBodyMaxHeight : '600px',
   };
 
     const theme = () => createTheme({
@@ -34,17 +33,6 @@ function CustomTable(props) {
                         color : "#fff",
                         verticalAlign: "top",
                         width: "fit-content"
-                    }
-                }
-            },
-            MUIDataTableHeadCell: {
-                styleOverrides :{
-                    root : {
-                        sortActive: {
-                            '& path': {
-                              color: "white" // or whatever you need
-                            }, 
-                        }, 
                     }
                 }
             },

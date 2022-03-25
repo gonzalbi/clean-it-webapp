@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Components/Header';
 import Mainbody from '../Components/MainBody';
-import Sidebar from '../Components/Sidebar';
+//import Sidebar from '../Components/Sidebar';
 
 function HomeScreen(props) {
     const [selectedTab,setSelectedTab] = useState("locationTable")
@@ -9,7 +9,6 @@ function HomeScreen(props) {
     return (
         <>
             <Header  selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-            <Sidebar />
             <Mainbody selectedTab={selectedTab} />            
         </>
     );
