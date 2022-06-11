@@ -12,7 +12,7 @@ function CustomTable(props) {
     filter : false,
     search: false,
     selectableRows: 'none',
-    tableBodyMaxHeight : '600px',
+    tableBodyMaxHeight : '600px'
   };
 
     const theme = () => createTheme({

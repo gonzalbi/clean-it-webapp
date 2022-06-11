@@ -28,31 +28,31 @@ function LocationTable(props) {
         switch(panelType){
           case "location":
             setTitle("Locacion")
-            setCustomPanel(<LocationPanel closeDrawer={() => setDrawer(false)} reloadData={() => setRefreshKey(e => e + 1)} />)
+            setCustomPanel(<LocationPanel width={"500px"} closeDrawer={() => setDrawer(false)} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
           case "sector":
             setTitle("Sector")
-            setCustomPanel(<SectorPanel closeDrawer={() => setDrawer(false)} locationId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
+            setCustomPanel(<SectorPanel  width={"500px"} closeDrawer={() => setDrawer(false)} locationId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
           case "subsector":
             setTitle("Subsector")
-            setCustomPanel(<SubsectorPanel closeDrawer={() => setDrawer(false)} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
+            setCustomPanel(<SubsectorPanel  width={"500px"} closeDrawer={() => setDrawer(false)} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
           case "operation":
             setTitle("Operacion")
-            setCustomPanel(<OperationPanel closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
+            setCustomPanel(<OperationPanel  width={"500px"} closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)} />)
             break;
           case "manage_operations":
               setTitle("Gestionar Operaciones")
-              setCustomPanel(<ManageOperationPanel closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+              setCustomPanel(<ManageOperationPanel  width={"800px"} closeDrawer={() => setDrawer(false)} subsectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
               break;
           case "mangage_epp":
               setTitle("Cargar Entrega de EPP por Operario")
-              setCustomPanel(<EPPPanel closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+              setCustomPanel(<EPPPanel  width={"800px"} closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
               break;
           case "manage_ropa":
             setTitle("Cargar Entrega de Ropa por Operario")
-            setCustomPanel(<EntregaRopaPanel closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
+            setCustomPanel(<EntregaRopaPanel width={"800px"} closeDrawer={() => setDrawer(false)} sectorName={name} sectorId={itemId} reloadData={() => setRefreshKey(e => e + 1)}  />)
               break;
           default :
             break;

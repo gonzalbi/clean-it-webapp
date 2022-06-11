@@ -3,7 +3,7 @@ import React from 'react';
 function BasePanel(props) {
 
     const style = {
-        width : props.width,
+        width : props.customPanel.props.width,
         backgroundColor: "#1f1f56",
         height: "100%",
         color : "white",
